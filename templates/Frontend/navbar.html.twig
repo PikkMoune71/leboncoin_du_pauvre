@@ -7,11 +7,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_homepage') }}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="btn btn-primary" href="/register">Sign-up</a>
-                </li>
+
 {#                <li class="nav-item dropdown">#}
 {#                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">#}
 {#                        Dropdown#}
@@ -31,6 +29,24 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+
+            {% if app.user %}
+                <li class="nav-item m-2 list-unstyled">
+                    <a class="btn btn-warning" href="{{ path('account') }}">Account</a>
+                </li>
+                <li class="nav-item m-2 list-unstyled">
+                    <a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item m-2 list-unstyled">
+                    <a class="btn btn-warning" href="{{ path('register') }}">Sign-up</a>
+                </li>
+                <li class="nav-item m-2 list-unstyled">
+                    <a class="btn btn-success" href="{{ path('app_login') }}">Sign-in</a>
+                </li>
+            {% endif %}
+
+
         </div>
     </div>
 </nav>
