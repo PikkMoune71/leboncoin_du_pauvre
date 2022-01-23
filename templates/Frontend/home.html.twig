@@ -7,6 +7,13 @@
 
 {% block body %}
     <div class="container">
+       {% if app.user %}
+            <span class="text-muted">Connecté en tant que : {{ app.user.username }}</span>
+        {% else %}
+            <span class="text-muted">Aucun compte connecté</span>
+        {% endif %}
+        
+        
         <h1>Homepage</h1>
     </div>
 {% endblock %}
