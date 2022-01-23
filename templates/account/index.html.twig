@@ -7,8 +7,8 @@
         <h1>Mon Compte</h1>
         <p>Bienvenue {{ app.user.firstname }} dans cet espace. <br> C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles.</p>
 
-        To Do :
-        - Modifier mon mot de passe
+        <hr>
+        - <a href="{{ path('account_password') }}">Modifier mon mot de passe</a>
         - Voir mes articles
     </div>
 
