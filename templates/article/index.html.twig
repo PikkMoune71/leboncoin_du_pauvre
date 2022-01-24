@@ -10,13 +10,17 @@
 
             {% for article in articles %}
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="article-item">
-                            <h5>{{ article.name }}</h5>
-                            <span>{{ article.subtitle }}</span>
-                            {{ article.price }}
+                    <a class="text-decoration-none text-dark" href="">
+                        <div class="card p-2 m-2">
+                            <div class="article-item">
+                                <img src="{{ article.image }}" alt="{{ article.image }}" class="img-fluid">
+                                <h5 class="text-center">{{ article.name }}</h5>
+                                <span class="bg-info rounded p-1">{{ article.tags }}</span>
+                                <p class="text-justify text-muted mt-2">{{ article.subtitle }}</p>
+                                <span class="fw-bold">{{ article.price }} €</span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>

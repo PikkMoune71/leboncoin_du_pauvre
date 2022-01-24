@@ -5,6 +5,7 @@ namespace App\Factory;
 use App\Entity\Article;
 use App\Entity\Tags;
 use App\Repository\ArticleRepository;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -40,13 +41,13 @@ final class ArticleFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'name' => self::faker()->name(),
+            'name' => self::faker()->realText(30),
             'slug' => self::faker()->slug(),
-            'image' => self::faker()->image(),
+            'image' => self::faker()->imageUrl(),
             'subtitle' => self::faker()->text(),
             'description' => self::faker()->text(),
-            'price' => self::faker()->randomFloat(),
-            'published_at' => new \DateTime(sprintf('-%d days', rand(1, 20))), // TODO add DATETIME ORM type manually
+            'price' => self::faker()->randomFloat(2, 1, 999),
+            'published_at' => self::faker()->dateTimeBetween('-100 days', '-1 second'),
             'tags' => TagsFactory::random(),
         ];
     }
@@ -54,8 +55,10 @@ final class ArticleFactory extends ModelFactory
     protected function initialize(): self
     {
         // see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
-        return $this
-            // ->afterInstantiate(function(Article $article): void {})
+        return $this->afterInstantiate(function(Article $article): void {
+            $slugger = new AsciiSlugger();
+            $article->setSlug($slugger->slug($article->getName()));
+        })
         ;
     }
 

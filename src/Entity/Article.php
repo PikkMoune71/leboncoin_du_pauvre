@@ -159,12 +159,12 @@ class Article
         return $this;
     }
 
-    public function getPublishedAt(): ?\DateTimeInterface
+    public function getPublishedAt(): ?\DateTime
     {
         return $this->published_at;
     }
 
-    public function setPublishedAt(?\DateTimeInterface $published_at): self
+    public function setPublishedAt(?\DateTime $published_at): self
     {
         $this->published_at = $published_at;
 
