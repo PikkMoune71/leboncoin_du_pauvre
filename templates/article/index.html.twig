@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les articles{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Les articles</h1>
+
+        <div class="row">
+
+            {% for article in articles %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="article-item">
+                            <h5>{{ article.name }}</h5>
+                            <span>{{ article.subtitle }}</span>
+                            {{ article.price }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,6 +54,21 @@ class Article
      * @ORM\JoinColumn(nullable=false)
      */
     private $tags;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $published_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="article")
+     */
+    private $questions;
+
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +155,48 @@ class Article
     public function setTags(?Tags $tags): self
     {
         $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function getPublishedAt(): ?\DateTimeInterface
+    {
+        return $this->published_at;
+    }
+
+    public function setPublishedAt(?\DateTimeInterface $published_at): self
+    {
+        $this->published_at = $published_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getArticle() === $this) {
+                $question->setArticle(null);
+            }
+        }
 
         return $this;
     }
