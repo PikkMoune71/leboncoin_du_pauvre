@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Classe\Search;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,30 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    /**
+     * Requête qui permet de récupérer les produits en fonction de la recherche de l'utilisateur
+     * @return Article[]
+     */
+    public function findWithSearch(Search $search)
+    {
+        $query = $this
+            ->createQueryBuilder('a')
+            ->select('t', 'a')
+            ->join('a.tags', 't');
+
+        if(!empty($search->tags)){
+            $query = $query
+                ->andWhere('t.id IN (:tags)')
+                ->setParameter('tags', $search->tags);
+        }
+
+        if(!empty($search->string)){
+            $query = $query
+                ->andWhere('a.name LIKE :string')
+                ->setParameter('string', "%{$search->string}%");
+        }
+        return $query->getQuery()->getResult();
+    }
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <img src="{{ article.image }}" alt="{{ article.image }}" class="img-fluid">
+            </div>
+            <div class="col">
+                <h1>{{ article.name }}</h1>
+                    <h5 class="fw-bold">{{ article.price }} €</h5>
+                    <span class="bg-info rounded p-1">{{ article.tags }}</span>
+                    <p class="text-justify text-muted mt-2">{{ article.subtitle }}</p>
+{#                    <p>{{ article.published_at|date('d-m-Y s:i:H') }}</p>#}
+                </div>
+
+            </div>
+            <div class="card mt-3 mb-4">
+                <h6>Description :</h6>
+                <p class="text-justify mt-2">{{ article.description }}</p>
+            </div>
+            <hr>
+            <div class="card">
+                <h4>Questions & Réponses :</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

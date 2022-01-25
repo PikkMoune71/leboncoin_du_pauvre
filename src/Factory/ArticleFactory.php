@@ -45,7 +45,7 @@ final class ArticleFactory extends ModelFactory
             'slug' => self::faker()->slug(),
             'image' => self::faker()->imageUrl(),
             'subtitle' => self::faker()->text(),
-            'description' => self::faker()->text(),
+            'description' => self::faker()->realTextBetween(200, 500),
             'price' => self::faker()->randomFloat(2, 1, 999),
             'published_at' => self::faker()->dateTimeBetween('-100 days', '-1 second'),
             'tags' => TagsFactory::random(),

@@ -43,6 +43,11 @@ class Question
      */
     private $article;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $question;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +109,18 @@ class Question
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getQuestion(): ?string
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(string $question): self
+    {
+        $this->question = $question;
 
         return $this;
     }

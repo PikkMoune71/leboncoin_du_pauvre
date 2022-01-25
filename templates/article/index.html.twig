@@ -4,25 +4,33 @@
 
 {% block body %}
     <div class="container">
-        <h1>Les articles</h1>
-
         <div class="row">
+            <div class="col-md-3">
+                <h3>Filtrer</h3>
+                {{ form(form) }}
 
-            {% for article in articles %}
-                <div class="col-md-4">
-                    <a class="text-decoration-none text-dark" href="">
-                        <div class="card p-2 m-2">
-                            <div class="article-item">
-                                <img src="{{ article.image }}" alt="{{ article.image }}" class="img-fluid">
-                                <h5 class="text-center">{{ article.name }}</h5>
-                                <span class="bg-info rounded p-1">{{ article.tags }}</span>
-                                <p class="text-justify text-muted mt-2">{{ article.subtitle }}</p>
-                                <span class="fw-bold">{{ article.price }} €</span>
-                            </div>
+            </div>
+            <div class="col-md-9">
+                <h2>Les Annonces</h2>
+                <div class="row">
+                    {% for article in articles %}
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{{ path('article', { 'slug': article.slug }) }}">
+                                <div class="card p-2 m-2">
+                                    <div class="article-item">
+                                        <img src="{{ article.image }}" alt="{{ article.image }}" class="img-fluid">
+                                        <h5 class="text-center">{{ article.name }}</h5>
+                                        <span class="bg-info rounded p-1">{{ article.tags }}</span>
+                                        <p class="text-justify text-muted mt-2">{{ article.subtitle }}</p>
+                                        <span class="fw-bold">{{ article.price }} €</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
         </div>
+
     </div>
 {% endblock %}
