@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes articles{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Liste de mes articles</h1>
+
+        {% for article in articles %}
+            {% if app.user.email == article.users.email %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Subtitle</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Tags</th>
+                        <th scope="col">Publish</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ article.id }}</th>
+                        <td>{{ article.name }}</td>
+                        <td>{{ article.slug }}</td>
+                        <td> <img src="{{ article.image }}" alt="{{ article.image }}" class="img-fluid" width="200" height="200"></td>
+                        <td>{{ article.subtitle }}</td>
+                        <td>{{ article.price }}</td>
+                        <td>{{ article.tags }}</td>
+                        <td>{{ article.createdAt|date('d-m-Y H:i') }}</td>
+                        <td>
+                            <a href="#" class="btn btn-warning btn-sm mb-2">Modifier</a>
+                            <a href="#" class="btn btn-danger btn-sm">Supprimer</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

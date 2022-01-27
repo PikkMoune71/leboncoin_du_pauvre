@@ -17,7 +17,7 @@
                 </li>
             </ul>
 
-            {% if app.user %}
+            {% if is_granted('ROLE_USER') %}
                 <li class="nav-item m-2 list-unstyled">
                     <a class="btn btn-warning" href="{{ path('account') }}">Account</a>
                 </li>

@@ -49,7 +49,7 @@ final class ArticleFactory extends ModelFactory
             'price' => self::faker()->randomFloat(2, 1, 999),
             'createdAt' => self::faker()->dateTimeBetween('-100 days', '-1 second'),
             'tags' => TagsFactory::random(),
-            'user' => UserFactory::random(),
+            'users' => UserFactory::random(),
         ];
     }
 

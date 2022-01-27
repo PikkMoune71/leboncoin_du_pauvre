@@ -8,8 +8,10 @@
         <p>Bienvenue {{ app.user.firstname }} dans cet espace. <br> C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles.</p>
 
         <hr>
-        - <a href="{{ path('account_password') }}">Modifier mon mot de passe</a>
-        - Voir mes articles
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-warning" href="{{ path('account_password') }}">Modifier mon mot de passe</a>
+            <a class="btn btn-primary" href="{{ path('account_articles') }}">Voir mes articles</a>
+        </div>
     </div>
 
 {% endblock %}

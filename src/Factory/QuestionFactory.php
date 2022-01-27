@@ -40,7 +40,7 @@ final class QuestionFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'name' => self::faker()->name(),
+            'name' => self::faker()->realText(10),
             'slug' => self::faker()->slug(),
             'task_at' => self::faker()->dateTimeBetween('-100 days', '-1 second'),
             'question' => self::faker()->text(),

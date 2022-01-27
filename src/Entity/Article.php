@@ -67,9 +67,8 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $users;
 
     public function __construct()
     {
@@ -207,14 +206,14 @@ class Article
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUsers(): ?User
     {
-        return $this->user;
+        return $this->users;
     }
 
-    public function setUser(?User $user): self
+    public function setUsers(?User $user): self
     {
-        $this->user = $user;
+        $this->users = $user;
 
         return $this;
     }
