@@ -58,12 +58,18 @@ class Article
     /**
      * @ORM\Column(type="datetime")
      */
-    private $published_at;
+    private $createdAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="article")
      */
     private $questions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -159,14 +165,14 @@ class Article
         return $this;
     }
 
-    public function getPublishedAt(): ?\DateTime
+    public function getCreatedAt(): ?\DateTime
     {
-        return $this->published_at;
+        return $this->createdAt;
     }
 
-    public function setPublishedAt(?\DateTime $published_at): self
+    public function setCreatedAt(?\DateTime $createdAt): self
     {
-        $this->published_at = $published_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -197,6 +203,18 @@ class Article
                 $question->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

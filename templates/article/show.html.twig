@@ -11,9 +11,9 @@
             <div class="col">
                 <h1>{{ article.name }}</h1>
                     <h5 class="fw-bold">{{ article.price }} €</h5>
+                    <p class="text-muted">{{ article.createdAt|date('d-m-Y H:i') }}</p>
                     <span class="bg-info rounded p-1">{{ article.tags }}</span>
                     <p class="text-justify text-muted mt-2">{{ article.subtitle }}</p>
-{#                    <p>{{ article.published_at|date('d-m-Y s:i:H') }}</p>#}
                 </div>
 
             </div>
@@ -22,8 +22,25 @@
                 <p class="text-justify mt-2">{{ article.description }}</p>
             </div>
             <hr>
-            <div class="card">
+            <div class="card p-3">
                 <h4>Questions & Réponses :</h4>
+                <div class="card p-2">
+                    {% for question in article.questions %}
+                        <div class="d-flex">
+                            <h5>{{ question.name }}</h5>
+                            <p class="text-muted ms-4">{{ question.taskAt|ago }}</p>
+                        </div>
+
+                        <p>{{ question.question }}</p>
+                        {{ dump(question) }}
+
+
+{#                        {% if app.user.email == article.users.email %}#}
+{#                            <input type="text" placeholder="Votre réponse....">#}
+{#                            <button class="mb-2 btn-secondary">Envoyer</button>#}
+{#                        {% endif %}#}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
