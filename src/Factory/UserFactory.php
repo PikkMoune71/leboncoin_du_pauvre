@@ -44,6 +44,7 @@ final class UserFactory extends ModelFactory
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'firstname' => self::faker()->firstName(),
             'lastname' => self::faker()->lastName(),
+            'vote' => rand(-20, 10),
         ];
     }
 

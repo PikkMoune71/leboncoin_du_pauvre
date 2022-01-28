@@ -33,7 +33,7 @@ class Question
     private $task_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="questions")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="questions", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

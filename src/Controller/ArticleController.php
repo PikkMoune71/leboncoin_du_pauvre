@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Classe\Search;
 use App\Entity\Article;
+use App\Entity\User;
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,6 +59,26 @@ class ArticleController extends AbstractController
 
         return $this->render('article/show.html.twig', [
             'article' => $article,
+        ]);
+    }
+
+    /**
+     * @Route("/article/{id}/vote", name="app_user_vote", methods={"POST"})
+     */
+    public function userVote(User $user, Request $request, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        $vote = $request->request->get('vote');
+
+        if ($vote === "up") {
+            $user->upVote();
+        } else {
+            $user->downVote();
+        }
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('article', [
+            'id' => $user->getId(),
         ]);
     }
 }

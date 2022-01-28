@@ -58,6 +58,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $vote = 0;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -234,6 +239,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             }
         }
 
+        return $this;
+    }
+
+    public function getVote(): ?int
+    {
+        return $this->vote;
+    }
+
+    public function setVote(int $vote): self
+    {
+        $this->vote = $vote;
+
+        return $this;
+    }
+
+    public function upVote(): self
+    {
+        $this->vote++;
+        return $this;
+    }
+
+    public function downVote(): self
+    {
+        $this->vote--;
         return $this;
     }
 }

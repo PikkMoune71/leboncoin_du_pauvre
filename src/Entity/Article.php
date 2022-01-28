@@ -66,7 +66,7 @@ class Article
     private $questions;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles", fetch="EAGER")
      */
     private $users;
 
