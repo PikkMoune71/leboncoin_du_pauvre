@@ -63,11 +63,12 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/{id}/vote", name="app_user_vote", methods={"POST"})
+     * @Route("/article/{slug}/{id}/vote", name="app_user_vote", methods={"POST"})
      */
-    public function userVote(User $user, Request $request, EntityManagerInterface $entityManager): RedirectResponse
+    public function userVote(User $user, $slug, Request $request, EntityManagerInterface $entityManager): RedirectResponse
     {
         $vote = $request->request->get('vote');
+        $article = $this->entityManager->getRepository(Article::class)->findOneBySlug($slug);
 
         if ($vote === "up") {
             $user->upVote();
@@ -79,6 +80,7 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('article', [
             'id' => $user->getId(),
+            'slug' => $article->getSlug()
         ]);
     }
 }

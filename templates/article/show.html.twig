@@ -14,19 +14,26 @@
                     <p class="text-muted">{{ article.createdAt|date('d-m-Y H:i') }}</p>
                     <span class="bg-info rounded p-1">{{ article.tags }}</span>
                     <p class="text-justify text-muted mt-2">{{ article.subtitle }}</p>
-                    <p>Publié par : {{ article.users.lastname }} {{ article.users.firstname }}</p>
 
-                    <form action="{{ path('app_user_vote', { id: article.users.id }) }}" method="post">
-                        <button class="btn btn-success btn-sm" name="vote" value="up">Vote up</button>
-                        <button class="btn btn-warning btn-sm" name="vote" value="down">Vote down</button>
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-3">
+                            <p>Publié par : {{ article.users.lastname }} {{ article.users.firstname }}</p>
+                        </div>
+                        <div class="card text-center p-2">
+                            <span class="mb-2">Note du vendeur</span>
+                            <form action="{{ path('app_user_vote', { slug: article.slug, id: article.users.id }) }}" method="post">
+                                <button class="btn btn-success btn-sm" name="vote" value="up"><i class="fas fa-thumbs-up"></i></button>
+                                <button class="btn btn-danger btn-sm" name="vote" value="down"><i class="fas fa-hand-middle-finger"></i></button>
 
-                        {% if article.users.vote <= "0" %}
-                            <i class="fas fa-hand-middle-finger"></i>
-                        {% else %}
-                            <i class="fas fa-thumbs-up"></i>
-                        {% endif %}
-                        <span>{{ article.users.vote }}</span>
-                    </form>
+                                {% if article.users.vote <= "0" %}
+                                    <i class="fas fa-hand-middle-finger"></i>
+                                {% else %}
+                                    <i class="fas fa-thumbs-up"></i>
+                                {% endif %}
+                                <span>{{ article.users.vote }}</span>
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -37,22 +44,39 @@
             <hr>
             <div class="card p-3">
                 <h4>Questions & Réponses :</h4>
+                    {% if app.user.email != article.users.email %}
+                        <div class="form-floating mb-2 mt-3">
+                            <textarea class="form-control" placeholder="Question à {{ article.users.id }}" id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Poser une question à {{ article.users.lastname }} {{ article.users.firstname }} </label>
+                        </div>
+                        <button class="col-md-2 mb-5 btn btn-success">Envoyer</button>
+                    {% endif %}
                     {% for question in article.questions %}
                         <div class="card p-2 mb-3">
                             <div class="d-flex">
                                 <h5>{{ question.name }}</h5>
                                 <p class="text-muted ms-4">{{ question.taskAt|ago }}</p>
                             </div>
-                            <p class="text-muted">Écrit par : {{ question.user.lastname }} {{ question.user.firstname }}</p>
 
-                            <p>{{ question.question }}</p>
+                            <div class="bg-warning p-2 rounded mb-2" style="--bs-bg-opacity: .5;">
+                                <p class="text-muted">Écrit par : {{ question.user.lastname }} {{ question.user.firstname }}</p>
+                                <p class="text-black">{{ question.question }}</p>
+                            </div>
+                            {% for answer in question.answers %}
+                                <div class="bg-success p-2 rounded mb-2" style="--bs-bg-opacity: .5;">
+                                    <p class="text-black">{{ answer.content }}</p>
+                                </div>
+                            {% endfor %}
+
 
                             {% if app.user.email == article.users.email %}
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder="Répondre à {{ question.user.id }}" id="floatingTextarea"></textarea>
-                                    <label for="floatingTextarea">Répondre à {{ question.user.lastname }} {{ question.user.firstname }} </label>
-                                </div>
-                                <button class="col-md-2 mb-2 btn btn-primary">Répondre</button>
+                                <a class="btn btn-success btn-sm col-md-2" href="{{ path('app_answer', { slug: question.slug, id: question.id }) }}">Répondre</a>
+
+{#                                <div class="form-floating mb-3">#}
+{#                                    <textarea class="form-control" placeholder="Répondre à {{ question.user.id }}" id="floatingTextarea"></textarea>#}
+{#                                    <label for="floatingTextarea">Répondre à {{ question.user.lastname }} {{ question.user.firstname }} </label>#}
+{#                                </div>#}
+{#                                <button class="col-md-2 mb-2 btn btn-primary">Répondre</button>#}
                             {% endif %}
                         </div>
                     {% endfor %}
