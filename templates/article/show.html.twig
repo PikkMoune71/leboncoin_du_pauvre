@@ -45,13 +45,14 @@
             <div class="card p-3">
                 <h4>Questions & Réponses :</h4>
                     {% if app.user.email != article.users.email %}
-                        <div class="form-floating mb-2 mt-3">
-                            <textarea class="form-control" placeholder="Question à {{ article.users.id }}" id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Poser une question à {{ article.users.lastname }} {{ article.users.firstname }} </label>
-                        </div>
-                        <button class="col-md-2 mb-5 btn btn-success">Envoyer</button>
+                        {{ form(formQuestion) }}
+{#                        <div class="form-floating mb-2 mt-3">#}
+{#                            <textarea class="form-control" placeholder="Question à {{ article.users.id }}" id="floatingTextarea"></textarea>#}
+{#                            <label for="floatingTextarea">Poser une question à {{ article.users.lastname }} {{ article.users.firstname }} </label>#}
+{#                        </div>#}
+{#                        <button class="col-md-2 mb-5 btn btn-success">Envoyer</button>#}
                     {% endif %}
-                    {% for question in article.questions %}
+                    {% for question in article.questions|reverse %}
                         <div class="card p-2 mb-3">
                             <div class="d-flex">
                                 <h5>{{ question.name }}</h5>
@@ -62,8 +63,19 @@
                                     <div>
                                         <p class="text-muted">Écrit par : {{ question.user.lastname }} {{ question.user.firstname }}</p>
                                     </div>
-                                    <div>
-                                        <p class="text-muted">{{ question.taskAt|ago }}</p>
+                                    <div class="d-flex">
+                                        <p class="text-muted me-2">{{ question.taskAt|ago }}</p>
+                                        {% if app.user.email == question.user.email %}
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary opacity-75 btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                                <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+                                                    <div class="d-flex justify-content-center">
+                                                        <li class="pe-3"><a href="{{ path('app_question_edit', { id: question.id, slug: article.slug }) }}" class="text-primary"><i class="far fa-edit"></i></a></li>
+                                                        <li><a href="{{ path('app_question_delete', { id: question.id, slug: article.slug }) }}" class="text-danger"><i class="far fa-trash-alt"></i></a></li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
 
@@ -75,8 +87,20 @@
                                         <div>
                                             <p class="text-muted">Écrit par : {{ answer.user.lastname }} {{ answer.user.firstname }}</p>
                                         </div>
-                                        <div>
-                                            <p class="text-muted">{{ answer.answerAt|ago }}</p>
+                                        <div class="d-flex">
+                                            <p class="text-muted me-2">{{ answer.answerAt|ago }}</p>
+                                            {% if app.user.email == article.users.email %}
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary opacity-75 btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                                    <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+                                                        <div class="d-flex justify-content-center">
+                                                            <li class="pe-3"><a href="{{ path('app_answer_edit', { id: answer.id, slug: article.slug }) }}" class="text-primary"><i class="far fa-edit"></i></a></li>
+                                                            <li><a href="{{ path('app_answer_delete', { id: answer.id, slug: article.slug }) }}" class="text-danger"><i class="far fa-trash-alt"></i></a></li>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                     <p class="text-black">{{ answer.content }}</p>
