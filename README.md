@@ -9,7 +9,10 @@ Start Projet :
 - symfony serve -d
 - docker-compose up
 
-Pour se connecter avec un user :
-- Récupérer une adresse mail dans la BDD à l'aide de cette commande : 	symfony console doctrine:query:sql "SELECT * FROM user"
-- Le mot de passe pour se connecter sur n'importe quel compte est : 	password
+Requête BDD :
+symfony console doctrine:query:sql "SELECT * FROM user"
+
+Conenxion User :
+- Adresse mail d'un user
+- Le mot de passe : password
 
