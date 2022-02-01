@@ -2,13 +2,12 @@
 Projet Symfony HETIC - Leboncoin du pauvre
 
 Installation du projet
-
 - git clone : https://github.com/PikkMoune71/leboncoin_du_pauvre.git
+- composer update
 
-Dans la console du projet pour initialiser le projet :
-- composer install
+Start Projet :
+- symfony serve -d
 - docker-compose up
-- symfony console doctrine:fixtures:load
 
 Pour se connecter avec un user :
 - Récupérer une adresse mail dans la BDD à l'aide de cette commande : 	symfony console doctrine:query:sql "SELECT * FROM user"
