@@ -11,6 +11,6 @@ Dans la console du projet :
 - symfony console doctrine:fixtures:load
 
 Pour se connecter avec un user :
-- Récupérer une adresse mail dans la BDD à l'aide de cette commande : symfony console doctrine:query:sql "SELECT * FROM user"
-- Le mot de passe pour se connecter sur n'importe quel compte est : password
+- Récupérer une adresse mail dans la BDD à l'aide de cette commande : 	symfony console doctrine:query:sql "SELECT * FROM user"
+- Le mot de passe pour se connecter sur n'importe quel compte est : 	password
 
