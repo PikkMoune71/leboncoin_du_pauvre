@@ -3,7 +3,7 @@ Projet Symfony HETIC - Leboncoin du pauvre
 
 Installation du projet
 
-- Cloner le dépôt git : https://github.com/PikkMoune71/leboncoin_du_pauvre.git
+- git clone : https://github.com/PikkMoune71/leboncoin_du_pauvre.git
 
 Dans la console du projet pour initialiser le projet :
 - composer install
