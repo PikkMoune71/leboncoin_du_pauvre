@@ -62,10 +62,10 @@ class AnswerController extends AbstractController
     {
         $article = $this->entityManager->getRepository(Article::class)->findOneBySlug($slug);
 
-        // getReference ne marche qu'avec un id
         $answer = $entityManager->getReference(Answer::class, $id);
         $entityManager->remove($answer);
         $entityManager->flush();
+
 
         return $this->redirectToRoute('article', ['slug' => $article->getSlug()]);
     }
@@ -80,9 +80,8 @@ class AnswerController extends AbstractController
         $article = $this->entityManager->getRepository(Article::class)->findOneBySlug($slug);
 
         $form = $this->createForm(AnswerType::class, $answer);
-
-        // Le reste ne change pas
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             /**
              * @var $answer Answer

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Answer;
 use App\Entity\Article;
 use App\Entity\Question;
 use App\Entity\Tags;
@@ -35,5 +36,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Tags', 'fas fa-tag', Tags::class);
         yield MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Article::class);
         yield MenuItem::linkToCrud('Questions', 'fas fa-question-circle', Question::class);
+        yield MenuItem::linkToCrud('Réponses', 'fas fa-reply', Answer::class);
     }
 }

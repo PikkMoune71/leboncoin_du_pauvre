@@ -45,6 +45,7 @@ final class UserFactory extends ModelFactory
             'firstname' => self::faker()->firstName(),
             'lastname' => self::faker()->lastName(),
             'vote' => rand(-20, 10),
+
         ];
     }
 
@@ -55,6 +56,9 @@ final class UserFactory extends ModelFactory
             $email = strtolower($user->getFirstname()) . '.' . strtolower($user->getLastname()) . "@gmail.com";
             $user->setEmail($email);
             $user->setPassword($this->hasher->hashPassword($user, 'password'));
+            if(random_int(1,3) == 1){
+                $user->setRoles(['ROLE_ADMIN']);
+            }
         })
         ;
     }

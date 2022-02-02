@@ -28,7 +28,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles", name="articles")
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
         $articles = $this->entityManager->getRepository(Article::class)->findAll();
 

@@ -27,9 +27,8 @@ class QuestionController extends AbstractController
         $article = $this->entityManager->getRepository(Article::class)->findOneBySlug($slug);
 
         $form = $this->createForm(QuestionType::class, $question);
-
-        // Le reste ne change pas
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             /**
              * @var $question Question
@@ -54,7 +53,6 @@ class QuestionController extends AbstractController
     {
         $article = $this->entityManager->getRepository(Article::class)->findOneBySlug($slug);
 
-        // getReference ne marche qu'avec un id
         $question = $entityManager->getReference(Question::class, $id);
         $entityManager->remove($question);
         $entityManager->flush();

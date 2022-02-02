@@ -51,7 +51,7 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity=Tags::class, inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $tags;
 
@@ -62,6 +62,7 @@ class Article
 
     /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="article")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $questions;
 

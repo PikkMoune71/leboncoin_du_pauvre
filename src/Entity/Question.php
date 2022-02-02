@@ -36,12 +36,13 @@ class Question
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="questions", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="questions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $article;
 

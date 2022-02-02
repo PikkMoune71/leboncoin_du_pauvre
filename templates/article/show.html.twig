@@ -22,9 +22,10 @@
                         <div class="card text-center p-2">
                             <span class="mb-2">Note du vendeur</span>
                             <form action="{{ path('app_user_vote', { slug: article.slug, id: article.users.id }) }}" method="post">
-                                <button class="btn btn-success btn-sm" name="vote" value="up"><i class="fas fa-thumbs-up"></i></button>
-                                <button class="btn btn-danger btn-sm" name="vote" value="down"><i class="fas fa-hand-middle-finger"></i></button>
-
+                                {% if article.users.email != app.user.email %}
+                                    <button class="btn btn-success btn-sm" name="vote" value="up"><i class="fas fa-thumbs-up"></i></button>
+                                    <button class="btn btn-danger btn-sm" name="vote" value="down"><i class="fas fa-hand-middle-finger"></i></button>
+                                {% endif %}
                                 {% if article.users.vote <= "0" %}
                                     <i class="fas fa-hand-middle-finger"></i>
                                 {% else %}
@@ -46,11 +47,6 @@
                 <h4>Questions & Réponses :</h4>
                     {% if app.user.email != article.users.email %}
                         {{ form(formQuestion) }}
-{#                        <div class="form-floating mb-2 mt-3">#}
-{#                            <textarea class="form-control" placeholder="Question à {{ article.users.id }}" id="floatingTextarea"></textarea>#}
-{#                            <label for="floatingTextarea">Poser une question à {{ article.users.lastname }} {{ article.users.firstname }} </label>#}
-{#                        </div>#}
-{#                        <button class="col-md-2 mb-5 btn btn-success">Envoyer</button>#}
                     {% endif %}
                     {% for question in article.questions|reverse %}
                         <div class="card p-2 mb-3">
