@@ -9,6 +9,9 @@ Start Projet :
 - symfony serve -d
 - docker-compose up
 
+Fixtures :
+- symfony console doctrine:fixtures:load
+
 Requête BDD :
 symfony console doctrine:query:sql "SELECT * FROM user"
 
